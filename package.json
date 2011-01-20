@@ -1,0 +1,7 @@
+{
+  "name": "mmodel",
+  "version": "0.0.1",
+  "directories" : {
+    "lib" : "./lib"
+  }
+}
