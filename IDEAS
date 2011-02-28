@@ -1,0 +1,141 @@
+var Task = function(props) {
+  props = props || {}
+  for(var k in model.properties) {
+    this[k] = model.properties[k]
+      // var x = props[k] == null ? p["default"] : props[k]
+      // if(x !== undefined) this[k] = x
+  }
+  this.trigger("initialize")
+  this.errors = []
+  return
+}
+
+var Task = function() {
+  this._callbacks = {}
+}
+
+Task._callbacks = {}
+
+
+
+Task.bind = Task.prototype.bind = function(ev, callback) {
+  var list  = this._callbacks[ev] || (this._callbacks[ev] = [])
+  list.push(callback)
+  return this
+}
+
+Task.unbind = Task.prototype.unbind = function(ev, callback) {
+  if (!ev) {
+    this._callbacks = {}
+    return this
+  }
+
+  if (!callback) {
+    this._callbacks[ev] = []
+    return this
+  } 
+  
+  var list = this._callbacks[ev] || []
+  
+  for (var i = 0; i < list.length; i++) {
+    if (callback === list[i]) {
+      list.splice(i, 1)
+      break
+    }
+  }
+  return this
+}
+
+function async(fn) {
+  return function(next) {
+    fn.apply(self, args)
+    next()
+  }
+}
+
+Task.prototype.trigger = function(ev, cb) {
+  var global = this.constructor._callbacks[ev] || []
+      local = this._callbacks[ev] || [],
+      list = global.concat(local)
+      args = Array.prototype.slice.call(arguments, 1),
+      self = this
+      
+  var fns = []
+  
+  for (var i = 0; i < list.length; i++) {
+    var fn = list[i]
+    if(fn.length == 1) fn = async(fn)
+    fns.push(fn)
+  }
+  
+  chain.call(self, fns, function() {
+    if(cb) cb.call(self)
+  })
+  
+  return this
+}
+
+
+Task.prototype.save = function(cb) {
+  
+  this.errors = []
+    
+  var fns = [
+    function(cb) { this.trigger("saving", cb) },
+    this.validate,
+    this.persist,
+    function(cb) { this.trigger("saved", cb) }
+  ]
+
+  chain(fns, function(err) {
+    cb(err)
+  })
+}
+
+
+Task.bind("saving", function() {
+  this.name = this.name || "default"
+})
+
+Task.bind("initialized", Task.default_properties)
+
+Task.default_properties = function() {
+  for(var k in model.properties) {
+      var p = model.properties[k]
+      var x = this[k] == null ? p["default"] : props[k]
+      if(x !== undefined) this[k] = x
+  }
+}
+
+Task.bind("saving", Task.default_validations)
+
+Task.default_validations = function() {
+  for(var i in model.properties) {
+    var p = model.properties[i]
+    if(p.required && this[i] == null) this.errors.push(i + " is required")
+    if(p.format && this[i] && !this[i].match(p.format)) this.errors.push(i + " is bad format")
+  }
+}
+
+Task.prototype.validate = function(cb) {
+  cb(this.errors.length == 0)  
+}
+
+// binds for all tasks
+// Task.bind("save", function() {
+//   console.log("savein global")
+// })
+// 
+// 
+// 
+// 
+// 
+// var a = new Task()
+// a.bind("save", function(x) {
+//  console.log("a", x) 
+// })
+// 
+// a.trigger("save", 1)
+// 
+// var b = new Task()
+// b.trigger("save", 2)
