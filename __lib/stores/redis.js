@@ -13,34 +13,34 @@ exports.mixin = function(model) {
     return model.klass + ":" + this.id
   }
   
-  model.prototype.links = function(type, cb) {
-    model.client.sort(this.key() +":"+type, function(err, data) {
-      if(err) return cb(false)
-      cb(data)
-    })
-  }
+  // model.prototype.links = function(type, cb) {
+  //   model.client.sort(this.key() +":"+type, function(err, data) {
+  //     if(err) return cb(false)
+  //     cb(data)
+  //   })
+  // }
+  // 
+  // model.prototype.linkCount = function(type, cb) {
+  //   model.client.ZCARD(this.key() +":"+type, function(err, data) {
+  //     cb ? cb(data) : null
+  //     // if(err) return cb(false)
+  //     //       cb(data ? parseInt(data) : 0)
+  //   })
+  // }
+  // 
+  // 
+  // model.prototype.link = function(id, type, score, cb) {
+  //   score = score || this.id
+  //   model.client.ZADD(this.key() +":"+type, id, score, function(err, data) {
+  //     cb ? cb(!err) : null
+  //   })
+  // }
 
-  model.prototype.linkCount = function(type, cb) {
-    model.client.ZCARD(this.key() +":"+type, function(err, data) {
-      cb ? cb(data) : null
-      // if(err) return cb(false)
-      //       cb(data ? parseInt(data) : 0)
-    })
-  }
-  
-  
-  model.prototype.link = function(id, type, score, cb) {
-    score = score || this.id
-    model.client.ZADD(this.key() +":"+type, id, score, function(err, data) {
-      cb ? cb(!err) : null
-    })
-  }
-
-  model.prototype.unlink = function(id, type, cb) {
-    model.client.ZREM(this.key() +":"+type, id, function(err, data) {
-      cb ? cb(!err) : null
-    })
-  }
+  // model.prototype.unlink = function(id, type, cb) {
+  //   model.client.ZREM(this.key() +":"+type, id, function(err, data) {
+  //     cb ? cb(!err) : null
+  //   })
+  // }
   
   
   model.prototype.save = function(cb) {

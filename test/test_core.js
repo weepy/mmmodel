@@ -1,10 +1,10 @@
 var x = {},
     assert = require('assert'),
     is = require('should'),
-    mmodel = require('../lib/core'),
     Task = require("./lib/task") 
 
 var task, o
+
 
 exports.load = function(done) {
   o = {user: "billy"}

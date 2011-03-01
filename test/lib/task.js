@@ -1,26 +1,28 @@
-var Task = mmodel.create("Task", {
+
+var Task = require("../../lib/core").create("Task", {
   id: { type: "number", auto_inc: true },
   user: { type: "string" },
-  created_at: { type: "number" },
-  title: { type:"string", default: "no title!" },
-  keywords: { type:"json", default: ["books"] },
+  created_at: { type: "date" },
+  title: { type:"string", "default": "no title!" },
+  keywords: { type:"json", "default": ["books"] },
 })
 
-Task.bind("saving", function(done) {
-  this.created_at = (this.created_at/1) || Date.now() // convert to number
-  this._saved = true
+Task.bind("saving", function updateCreatedAt(done) {
+  this.created_at || (this.created_at = new Date)
+  delete this._saved
   done()
 }, true) // async
 
-//Task.bind("saving", Task.propertyValidation)
+Task.bind("saved", function setSaved() {
+  this._saved = true
+}) // async
 
-Task.bind("saving", function() {
+
+Task.bind("saving", function validation() {
   this.user || this.error("no user")
+  !this.id || this.error("id must be null")
 })
 
-Task.bind("initialize", function() {
-  if(this.created_at) this.created_at = new Date(this.created_at) // convert from number
-})
 
 Task.bind("initialize", function(done) {
   this.test = 123
