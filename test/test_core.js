@@ -17,7 +17,6 @@ exports.load = function(done) {
 }
 
 exports.toJSON = function(done) {
-  o = {user: "billy"}
   task = new Task(o)
   assert.eql(task.toJSON(), { user: 'billy',
     title: 'no title!',
@@ -53,5 +52,15 @@ exports.merge = function(done) {
   task.merge({user:"bob", errors: "hello", title: "meep", __random:"XXX"})
   assert.eql(task.toJSON(), {user:"bob", title: "meep", keywords: ["books"], type:"Task"})
   done()
+}
+
+exports.test_dirty = function() {
+  task2 = new Task({user:"billy"})
+  task2.dirty().should.eql(false)
+  
+  task2.user = "johnny"
+  
+  task2.dirty().should.eql({"user":["billy", "johnny"]})  
+  task2.dirty("user").should.eql(["billy", "johnny"])  
 }
 

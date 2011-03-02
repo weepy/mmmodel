@@ -153,15 +153,99 @@ exports.test_all2 = function(done) {
   })
 }
 
+exports.test_add_edge = function(done) {
+  
+  Task.add_edge(1, "popular", function() {
+    Task.add_edge(2, "popular", function() {
+      Task.find_edges("popular").all(function(edges) {
+        edges.should.eql([1,2])
+        done()
+      })
+    })
+  })
+}
+
+exports.test_count_add_edge = function(done) {
+  
+  Task.find_edges("popular").count(function(num) {
+    num.should.eql(2)
+    done()
+  })
+}
+
+exports.test_remove_edge = function(done) {  
+  Task.remove_edge(1, "popular", function(ok) {
+    Task.find_edges("popular").all(function(edges) {
+      edges.should.eql([2])
+      done()
+    })
+  })
+}
+
+
+exports.test_add_edge_instance = function(done) {
+  
+  Task.create({user:"hello"}, function(task) {
+    
+    task.add_edge(1, "related_tasks", function() {
+      task.add_edge(2, "related_tasks", function() {
+        task.find_edges("related_tasks").all(function(edges) {
+          edges.should.eql([1,2])
+          done()
+        })
+      })
+    })
+    
+  })
+}
+
+exports.test_edge_instantiation = function(done) {
+  Task.find_edges("popular").load_as(Task).all(function(tasks) {
+    tasks.length.should.eql(1)
+    should.ok(tasks[0] instanceof Task)
+    done()
+  })
+}
+
+exports.add_scoring_Edges = function(done) {
+  Task.add_edge(1,"best", 100)
+  Task.add_edge(2,"best", 4)
+  Task.add_edge(3,"best", 10)
+  Task.add_edge(4,"best", 5)
+  Task.add_edge(5,"best", 0, done)
+}
+
+exports.test_scoring = function(done) {
+  Task.find_edges("best").range(3,7).count(function(num){
+    num.should.eql(2)
+  }) 
+  
+  Task.find_edges("best").range(3,100).all(function(tasks){
+    tasks.should.eql([2,4,3,1])
+  })
+
+  Task.find_edges("best").range(100,3).all(function(tasks){
+    tasks.should.eql([1,3,4,2])
+  })
+  
+  Task.find_edges("best").range(3,100).load_as(Task).all(function(tasks){
+    tasks.length.should.eql(4)
+    tasks[0].id.should.eql(2)
+    done()
+  })  
+}
+
+
+
 exports.test_destroy = function(done) {
   Task.count(function(num) {
-    num.should.eql(3)
+    num.should.eql(4)
     Task.find(1, function(p) {
       p.destroy(function() {
         Task.find(1, function(p) {
           is.ok(!p)
           Task.count(function(num) {
-            num.should.eql(2)
+            num.should.eql(3)
             done()
           })
         })
@@ -173,13 +257,13 @@ exports.test_destroy = function(done) {
 exports.test_destroy2 = function(done) {
 
   Task.count(function(num) {
-    num.should.eql(2)
+    num.should.eql(3)
     Task.find(2, function(p) {
       p.destroy(function() {
         Task.find(2, function(p) {
           is.ok(!p)
           Task.count(function(num) {
-            num.should.eql(1)
+            num.should.eql(2)
             done()
           })
         })

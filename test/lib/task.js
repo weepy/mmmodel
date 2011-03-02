@@ -8,7 +8,7 @@ var Task = require("../../lib/core").create("Task", {
 })
 
 Task.bind("saving", function updateCreatedAt(done) {
-  this.created_at || (this.created_at = new Date)
+  this.created_at || (this.created_at = new Date())
   delete this._saved
   done()
 }, true) // async
