@@ -1,5 +1,6 @@
 var app = require("./lib/app"),
     is = require("should"),
+    assert = require("assert"),
     Task = require("./lib/task")
 
 Task.setStore("rest")
@@ -8,14 +9,14 @@ function params(o) {
   var ret = []
   for(var i in o)
     ret.push(i+"="+escape(o[i]))
-  return ret.join("&")
+  return ret.join("&") || "_=1"
 }
 
 
 Task.ajax = {
   ajax: function(url, data, method, callback) {
-   url += "?" + params(data)
-    is.response(app, { url: url, method: method }, function(res) {
+    url += "?" + params(data)
+    is.response(app, { url: url, method: method, data: "_" }, function(res) {
       callback(res.body)
     })
   },
@@ -27,20 +28,26 @@ Task.ajax = {
   }
 }
 
-// exports.test_save = function(done) {
-//   var task = new Task({user: "jonah"})
-//   
-//   task.save(function(o) {
-//     task.id.should.be.eql(1)
-//       done()
-//   })
-// }
 
 
-exports.test_find = function(done) {
+exports.test_non_existing_find = function(done) {
   Task.find(1, function(task) {
-    console.log(task)
+    is.ok(task === null)
+    done()
+  })
+}
+
+exports.test_create = function(done) {
+  Task.create({user: "jonah"}, function(task) {
     task.id.should.be.eql(1)
     done()
   })
 }
+
+exports.test_create2 = function(done) {
+  Task.create({user: "jonah"}, function(task) {
+    task.id.should.be.eql(2)
+    done()
+  })
+}
+
