@@ -54,14 +54,12 @@ exports.find_saved_task = function(done) {
   })
 }
 
-
 exports.test_failed_create = function(done) {
   Task.create({id: 21}, function(p) {
     is.ok(p.errors.length, "task needs owner")
     done()
   })
 }
-
 
 exports.test_create = function(done) {
   Task.create({user: "wibwob"}, function(p) {
@@ -72,6 +70,16 @@ exports.test_create = function(done) {
   Task.create({user: "wibwob"}, function(p) {
     is.ok(p.id)
     p.id.should.equal(3)
+    done()
+  })
+}
+
+exports.test_dirty = function(done) {
+  task2 = new Task({user:"billy"})
+  task2.user = "johnny" 
+  task2.dirty().should.be.ok
+  task2.save(function() {
+    task2.dirty().should.not.be.ok
     done()
   })
 }
