@@ -26,10 +26,10 @@ exports.save_valid_task = function(done) {
   var t = new Task({user: "billy"})
 
   t.save(function(ok) {
-    if(!ok)
-      console.log(t.errors)
+    // if(!ok)
+    //   console.log(t.errors)
     
-    ok.should.be.true
+    ok.should.be.ok
     is.ok(t.id, "is saved")
 
     Task.exists(1, function(ok) {

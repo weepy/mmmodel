@@ -9,7 +9,6 @@ var task, o
 exports.load = function(done) {
   o = {user: "billy"}
   task = new Task(o)
-  // console.log(task)
   assert.eql(task.user, "billy")
   assert.eql(task.keywords, ["books"])
   assert.eql(task.test, 123)
@@ -40,8 +39,8 @@ exports.validate = function(done) {
   
 }
 
-exports.loadCollection = function(done) {
-  var list = Task.loadCollection([{user:"billy"}, {user:"jonah"}])
+exports.loadList = function(done) {
+  var list = Task.loadList([{user:"billy"}, {user:"jonah"}])
   assert.eql(list.length, 2)
   assert.ok(list[0] instanceof Task)
   done()
@@ -55,9 +54,12 @@ exports.merge = function(done) {
 }
 
 exports.test_dirty = function() {
-  task2 = new Task({user:"billy"})
-  task2.dirty().should.eql(false)
+  task = new Task({user:"billy"})
+  task.dirty().should.be.ok
   
+  task2 = Task.load({user:"billy"})
+  task2.dirty().should.eql(false)
+    
   task2.user = "johnny"
   
   task2.dirty().should.eql({"user":["billy", "johnny"]})  

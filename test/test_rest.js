@@ -28,8 +28,6 @@ Task.ajax = {
   }
 }
 
-
-
 exports.test_non_existing_find = function(done) {
   Task.find(1, function(task) {
     is.ok(task === null)
@@ -44,10 +42,28 @@ exports.test_create = function(done) {
   })
 }
 
-exports.test_create2 = function(done) {
-  Task.create({user: "jonah"}, function(task) {
-    task.id.should.be.eql(2)
+exports.test_find = function(done) {
+  Task.find(1, function(task) {
+    task.id.should.eql(1)
+    task.user.should.eql("jonah")
+    task.keywords.should.eql(["books"])    
     done()
+  })
+}
+
+exports.test_update = function(done) {
+  Task.find(1, function(task) {
+    task.user = "bob"
+    task.dirty("user").should.be.ok
+    
+    task.save(function(task) {
+      task.user.should.eql("bob")
+      task.id.should.eql(1)
+      task.clean()
+      task.dirty().should.eql(false)
+      task.dirty("user").should.eql(false)
+      done()
+    })
   })
 }
 

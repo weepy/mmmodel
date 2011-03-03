@@ -31,9 +31,9 @@ exports.save_valid_task = function(done) {
   var t = new Task({user: "billy"})
 
   t.save(function(ok) {
-
     if(!ok) console.log(t.errors)
-    ok.should.be.true //(ok, "task saved ok")
+    ok.should.be.ok //(ok, "task saved ok")
+    
     is.ok(t.id, "is saved")
 
     client.exists("Task:1", function(err, data) {
