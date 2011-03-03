@@ -55,7 +55,6 @@ exports.test_update = function(done) {
   Task.find(1, function(task) {
     task.user = "bob"
     task.dirty("user").should.be.ok
-    
     task.save(function(task) {
       task.user.should.eql("bob")
       task.id.should.eql(1)

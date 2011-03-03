@@ -36,8 +36,9 @@ exports.validate = function(done) {
     assert.eql(ok, true)
     done()
   })
-  
 }
+
+
 
 exports.loadArray = function(done) {
   var list = Task.loadArray([{user:"billy"}, {user:"jonah"}])

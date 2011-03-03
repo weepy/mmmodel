@@ -1,7 +1,7 @@
 
 var Task = require("../../lib/index").create("Task", {
   id: { type: "number", auto_inc: true },
-  user: { type: "string" },
+  user: { type: "string", required: "true" },
   created_at: { type: "date" },
   title: { type:"string", "default": "no title!" },
   keywords: { type:"json", "default": ["books"] },
@@ -16,13 +16,6 @@ Task.bind("saving", function updateCreatedAt(done) {
 Task.bind("saved", function setSaved() {
   this._saved = true
 }) // async
-
-
-Task.bind("saving", function validation() {
-  this.user || this.error("no user")
-  !this.id || this.error("id must be null")
-})
-
 
 Task.bind("initialize", function(done) {
   this.test = 123
