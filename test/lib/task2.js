@@ -1,4 +1,4 @@
-// this is a stupid hack -> should be dup of task.js
+// this is a hack -> is exactly the same as task.js
 
 var Task = require("../../lib/core").create("Task", {
   id: { type: "number", auto_inc: true },

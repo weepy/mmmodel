@@ -15,7 +15,6 @@ app.post("/tasks/save", function(req, res) {
 
 // find
 app.get("/tasks/:id", function(req, res) {
-
   Task.find(req.param("id"), function(task) {
     res.send(task ? task.toJSON() : null)
   })
