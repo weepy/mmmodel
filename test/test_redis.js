@@ -223,8 +223,13 @@ exports.test_scoring = function(done) {
   Task.find_edges("best").range(3,100).load_as(Task).all(function(tasks){
     tasks.length.should.eql(4)
     tasks[0].id.should.eql(2)
-    done()
   })  
+  
+  Task.find_edges("best").range(100).load_as(Task).all(function(tasks){
+    tasks.length.should.eql(1)
+    tasks[0].id.should.eql(1)
+    done()
+  })
 }
 
 

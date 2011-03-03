@@ -40,8 +40,8 @@ exports.validate = function(done) {
 
 
 
-exports.loadArray = function(done) {
-  var list = Task.loadArray([{user:"billy"}, {user:"jonah"}])
+exports.load_multi = function(done) {
+  var list = Task.load_multi([{user:"billy"}, {user:"jonah"}])
   assert.eql(list.length, 2)
   assert.ok(list[0] instanceof Task)
   done()
