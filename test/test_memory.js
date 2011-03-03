@@ -84,3 +84,30 @@ exports.test_dirty = function(done) {
   })
 }
 
+exports.test_exists = function(done) {
+  Task.find(1, function(task) {
+    task.id.should.eql(1)
+      Task.count(function(num) {
+        num.should.eql(4)
+      })
+    done()
+  })
+}
+
+exports.test_destroy = function(done) {
+  Task.destroy(1, function(ok) {
+    ok.should.be.ok
+    Task.destroy(1, function(ok) {
+      ok.should.not.be.ok
+      Task.find(2, function(task) {
+        task.destroy(function(ok) {
+          ok.should.be.ok     
+          Task.count(function(num) {
+            num.should.eql(2)
+            done()
+          })
+        })
+      })   
+    })
+  })
+}

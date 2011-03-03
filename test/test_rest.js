@@ -67,3 +67,17 @@ exports.test_update = function(done) {
   })
 }
 
+exports.test_destroy = function(done) {
+  Task.destroy(1, function(ok) {
+    ok.should.eql(true)
+    done()
+  })
+}
+
+
+exports.test_failing_find2 = function(done) {
+  Task.find(1, function(task) {
+    is.ok(task === null)
+    done()
+  })
+}

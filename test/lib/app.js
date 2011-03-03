@@ -1,29 +1,10 @@
 var express = require("express"),
-    app = express.createServer()
-
-var Task = require("./task2")
-
+    app = express.createServer(),
+    Task = require("./task2") // we need a different version ! otherwise the different stores get clobbered
 Task.setStore("memory")
 
-// app.configure(function() {
-// 
-//   // app.use(express.bodyDecoder())
-//     app.use(express.logger())
-// })
 
-// 
-// app.post("/tasks/update", auth, function(req, res) { 
-//   var o = JSON.parse(req.param("json"))
-//   new Task(o).update(o, function(ok) {
-//     res.send(this.toJSON())
-//   })
-// })
-//   
-
-// app.get("/app", function(req, res) { 
-//   res.send("hello")
-// })
-
+// save / update
 app.post("/tasks/save", function(req, res) {
   var o = JSON.parse(req.param("json"))
   var task = new Task(o)      
@@ -32,6 +13,7 @@ app.post("/tasks/save", function(req, res) {
   })
 })
 
+// find
 app.get("/tasks/:id", function(req, res) {
 
   Task.find(req.param("id"), function(task) {
@@ -39,19 +21,11 @@ app.get("/tasks/:id", function(req, res) {
   })
 })
 
-// app.get("*", function(req, res) { 
-//     console.log("x")
-// })
-
-// app.post("/tasks/destroy", auth, function(req, res) { 
-//   var o = JSON.parse(req.param("json"))
-//   
-//   function err() { res.send("error");  }
-//   function ok() { res.send("ok");  }
-//   
-//   Task.find(o.id, function(t) {
-//     t ? t.destroy(ok) : err()
-//   })
-// })
+// destroy
+app.post("/tasks/:id/destroy", function(req, res) { 
+  Task.destroy(req.param("id"), function(ok) {
+    res.send(JSON.stringify(ok))
+  })
+})
 
 module.exports = app
