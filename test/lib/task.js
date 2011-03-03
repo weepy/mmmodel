@@ -1,5 +1,5 @@
 
-var Task = require("../../lib/core").create("Task", {
+var Task = require("../../lib/index").create("Task", {
   id: { type: "number", auto_inc: true },
   user: { type: "string" },
   created_at: { type: "date" },

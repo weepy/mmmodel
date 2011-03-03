@@ -1,7 +1,7 @@
 var x = {},
     assert = require('assert'),
     is = require('should'),
-    mmodel = require('../lib/core'),
+    mmodel = require('../lib/index'),
     Task = require("./lib/task") 
 
 Task.setStore("memory")
