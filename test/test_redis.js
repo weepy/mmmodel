@@ -93,17 +93,9 @@ exports.test_create = function(done) {
       p.toJSON().should.eql(p2.toJSON())
       
       Task.all(function(tasks) {
-        // console.log(tasks, "tasks")
         tasks.length.should.eql(2)
         done()
       })
-            
-      // console.log(p2, p)
-      // Task.all(function(tasks) {        
-      //         console.log(tasks, tasks.length)
-      //         done()
-      //       })
-
     })
   })
   

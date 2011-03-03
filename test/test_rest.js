@@ -74,10 +74,35 @@ exports.test_destroy = function(done) {
   })
 }
 
-
 exports.test_failing_find2 = function(done) {
   Task.find(1, function(task) {
     is.ok(task === null)
     done()
   })
 }
+
+
+exports.test_create2 = function(done) {
+  Task.create({user: "jim"}, function(task) {
+    task.id.should.be.eql(2) 
+    done()
+  })
+}
+
+exports.test_create3 = function(done) {
+  Task.create({user: "bob"}, function(task) {
+    task.id.should.be.eql(3) 
+    done()
+  })
+}
+
+exports.test_query = function(done) {
+  Task.query({}, function(tasks) {
+    tasks.length.should.be.eql(2) 
+    tasks[0].id.should.eql(2)
+    tasks[1].user.should.eql("bob")
+    done()
+  })
+}
+
+

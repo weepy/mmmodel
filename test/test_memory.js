@@ -26,8 +26,6 @@ exports.save_valid_task = function(done) {
   var t = new Task({user: "billy"})
 
   t.save(function(ok) {
-    // if(!ok)
-    //   console.log(t.errors)
     
     ok.should.be.ok
     is.ok(t.id, "is saved")
@@ -104,10 +102,25 @@ exports.test_destroy = function(done) {
           ok.should.be.ok     
           Task.count(function(num) {
             num.should.eql(2)
-            done()
+            Task.destroy(3, function(ok) {
+              Task.destroy(4, function(ok) {
+                Task.count(function(num) {
+                  num.should.eql(0)
+                  done()
+                })
+              })
+            })            
           })
         })
       })   
     })
+  })
+}
+
+exports.test_create2 = function(done) {
+  Task.create({user: "wibwob"}, function(p) {
+    is.ok(p.id)
+    p.id.should.equal(5)
+    done()
   })
 }
