@@ -19,10 +19,10 @@ var Task = Mmodel.create("Task", { ... })
 
 // We now have the following functions available to us in core
 
-new Task(attr, [clean]) 
+new Task(attr, [sync]) 
 Task.load(attr)
 Task.create(attr, [callback])
-task.clean
+task.sync
 task.dirty([prop])
 task.update(params, [callback]) {
 task.save([callback])
@@ -32,7 +32,7 @@ task.toJSON()
 task.in_error()
 task.merge(attr, [x])
 task.validate(callback)
-Task.setStore
+Task._setStore
 Task.load_multi(array)
 Task.bind = task.bind(ev, callback, async)
 Task.unbind = task.unbind(ev, callback)

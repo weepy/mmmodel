@@ -3,9 +3,8 @@ var x = {},
     client = redis.createClient(),
     is = require('assert'),
     should = require('should')
-    Task = require("./lib/task")
+    Task = require("./lib/task")("redis")
     
-Task.setStore("redis")
 Task.client = client
 
 

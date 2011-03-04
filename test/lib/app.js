@@ -1,8 +1,8 @@
 var express = require("express"),
     app = express.createServer(),
-    Task = require("./task2") // we need a different version ! otherwise the different stores get clobbered
+    Task = require("./task2")("memory") // we need a different version ! otherwise the different stores get clobbered
 
-Task.setStore("memory")
+Task._setStore("memory")
 
 // find
 app.get("/tasks/:id", function(req, res) {

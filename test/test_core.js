@@ -1,7 +1,7 @@
 var x = {},
     assert = require('assert'),
     is = require('should'),
-    Task = require("./lib/task") 
+    Task = require("./lib/task")("core")
 
 var task, o
 

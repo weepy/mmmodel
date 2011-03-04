@@ -1,9 +1,9 @@
 var app = require("./lib/app"),
     is = require("should"),
     assert = require("assert"),
-    Task = require("./lib/task")
+    Task = require("./lib/task")("rest")
 
-Task.setStore("rest")
+
 Task.url = "/tasks"
 function params(o) {
   var ret = []
@@ -55,12 +55,12 @@ exports.test_update = function(done) {
   Task.find(1, function(task) {
     task.user = "bob"
     task.dirty("user").should.be.ok
-    task.save(function(task) {
-      task.user.should.eql("bob")
-      task.id.should.eql(1)
-      task.clean()
-      task.dirty().should.eql(false)
-      task.dirty("user").should.eql(false)
+    task.save(function(t) {
+      t.user.should.eql("bob")
+      t.id.should.eql(1)
+      // task.sync()
+      t.dirty().should.eql(false)
+      t.dirty("user").should.eql(false)
       done()
     })
   })

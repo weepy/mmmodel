@@ -2,9 +2,8 @@ var x = {},
     assert = require('assert'),
     is = require('should'),
     mmodel = require('../lib/index'),
-    Task = require("./lib/task") 
+    Task = require("./lib/task")("memory")
 
-Task.setStore("memory")
 
 var task, o
 
@@ -22,14 +21,19 @@ exports.unsaved_task_has_no_id = function(done) {
 }
 
 
-exports.save_valid_task = function(done) {
+
+
+
+
+exports.save_valid_synced = function(done) {
   var t = new Task({user: "billy"})
 
   t.save(function(ok) {
     
     ok.should.be.ok
     is.ok(t.id, "is saved")
-
+    is.ok(t.synced())
+    
     Task.exists(1, function(ok) {
       is.ok(ok)
     })
@@ -41,6 +45,20 @@ exports.save_valid_task = function(done) {
   })
 }
 
+exports.invalid_task_is_not_synced = function(done) {
+  var t = new Task()
+
+  t.save(function(task) {
+    task.should.be.ok
+    is.ok(!t.synced())
+    done()
+  })
+}
+
+
+
+
+
 exports.find_saved_task = function(done) {
   Task.find(1, function(u) {
     is.equal(u.id, 1, "id is correct")  
@@ -51,6 +69,31 @@ exports.find_saved_task = function(done) {
     })
   })
 }
+
+exports.test_update = function(done) {
+  Task.find(1, function(task) {
+    task.user = "bob"
+    task.dirty("user").should.be.ok
+    task.save(function(t) {
+      t.user.should.eql("bob")
+      t.id.should.eql(1)
+      // task.sync()
+      // task.dirty().should.eql(false)
+      // task.dirty("user").should.eql(false)
+      done()
+    })
+  })
+}
+
+
+exports.test_to_json = function(done) {
+  Task.find(1, function(u) {
+    u.toJSON().created_at.should.be.a("number")
+    done()    
+  })
+}
+
+
 
 exports.test_failed_create = function(done) {
   Task.create({id: 21}, function(p) {
