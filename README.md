@@ -23,7 +23,7 @@ new Task(attr, [sync])
 Task.load(attr)
 Task.create(attr, [callback])
 task.sync
-task.dirty([prop])
+task.modified([prop])
 task.update(params, [callback]) {
 task.save([callback])
 task.error(str) 

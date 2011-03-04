@@ -25,14 +25,14 @@ exports.unsaved_task_has_no_id = function(done) {
 
 
 
-exports.save_valid_synced = function(done) {
+exports.save_valid_saved = function(done) {
   var t = new Task({user: "billy"})
 
   t.save(function(ok) {
     
     ok.should.be.ok
     is.ok(t.id, "is saved")
-    is.ok(t.synced())
+    is.ok(t.saved())
     
     Task.exists(1, function(ok) {
       is.ok(ok)
@@ -45,12 +45,12 @@ exports.save_valid_synced = function(done) {
   })
 }
 
-exports.invalid_task_is_not_synced = function(done) {
+exports.invalid_task_is_not_saved = function(done) {
   var t = new Task()
 
   t.save(function(task) {
     task.should.be.ok
-    is.ok(!t.synced())
+    is.ok(!t.saved())
     done()
   })
 }
@@ -73,13 +73,13 @@ exports.find_saved_task = function(done) {
 exports.test_update = function(done) {
   Task.find(1, function(task) {
     task.user = "bob"
-    task.dirty("user").should.be.ok
+    task.modified("user").should.be.ok
     task.save(function(t) {
       t.user.should.eql("bob")
       t.id.should.eql(1)
       // task.sync()
-      // task.dirty().should.eql(false)
-      // task.dirty("user").should.eql(false)
+      // task.modified().should.eql(false)
+      // task.modified("user").should.eql(false)
       done()
     })
   })
@@ -115,12 +115,12 @@ exports.test_create = function(done) {
   })
 }
 
-exports.test_dirty = function(done) {
+exports.test_modified = function(done) {
   task2 = new Task({user:"billy"})
   task2.user = "johnny" 
-  task2.dirty().should.be.ok
+  task2.modified().should.be.ok
   task2.save(function() {
-    task2.dirty().should.not.be.ok
+    task2.modified().should.not.be.ok
     done()
   })
 }

@@ -54,16 +54,16 @@ exports.merge = function(done) {
   done()
 }
 
-exports.test_dirty = function() {
+exports.test_modified = function() {
   task = new Task({user:"billy"})
-  task.dirty().should.be.ok
+  task.modified().should.be.ok
   
   task2 = Task.load({user:"billy"})
-  task2.dirty().should.eql(false)
+  task2.modified().should.eql(false)
     
   task2.user = "johnny"
   
-  task2.dirty().should.eql({"user":["billy", "johnny"]})  
-  task2.dirty("user").should.eql(["billy", "johnny"])  
+  task2.modified().should.eql({"user":["billy", "johnny"]})  
+  task2.modified("user").should.eql(["billy", "johnny"])  
 }
 

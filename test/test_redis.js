@@ -268,14 +268,14 @@ exports.test_destroy2 = function(done) {
   })
 }
 
-exports.test_dirty = function(done) {
+exports.test_modified = function(done) {
   task2 = new Task({user:"billy"})
   task2.user = "johnny" 
-  task2.dirty().should.be.ok
-  task2.dirty("user").should.be.ok
+  task2.modified().should.be.ok
+  task2.modified("user").should.be.ok
   task2.save(function() {
-    task2.dirty().should.not.be.ok
-    task2.dirty("user").should.not.be.ok
+    task2.modified().should.not.be.ok
+    task2.modified("user").should.not.be.ok
     done()
   })
 }

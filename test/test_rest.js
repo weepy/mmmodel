@@ -54,13 +54,13 @@ exports.test_find = function(done) {
 exports.test_update = function(done) {
   Task.find(1, function(task) {
     task.user = "bob"
-    task.dirty("user").should.be.ok
+    task.modified("user").should.be.ok
     task.save(function(t) {
       t.user.should.eql("bob")
       t.id.should.eql(1)
       // task.sync()
-      t.dirty().should.eql(false)
-      t.dirty("user").should.eql(false)
+      t.modified().should.eql(false)
+      t.modified("user").should.eql(false)
       done()
     })
   })
