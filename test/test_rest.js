@@ -17,7 +17,7 @@ Task.ajax = {
   ajax: function(url, data, method, callback) {
     url += "?" + params(data)
     is.response(app, { url: url, method: method, data: "_" }, function(res) {
-      callback(res.body)
+      callback(JSON.parse(res.body))
     })
   },
   get: function(url, data, callback) {
@@ -58,7 +58,7 @@ exports.test_update = function(done) {
     task.save(function(t) {
       t.user.should.eql("bob")
       t.id.should.eql(1)
-      // task.sync()
+      // task._synchronize()
       t.modified().should.eql(false)
       t.modified("user").should.eql(false)
       done()

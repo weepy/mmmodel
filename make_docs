@@ -1,0 +1,5 @@
+#!/bin/bash
+
+dox --desc "Homer Simpson's favoriate Javascript ORM" --ribbon http://github.com/weepy/mmmodel > docs/index.html  --title mmmodel lib/*.js 
+
+

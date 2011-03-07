@@ -1,15 +1,15 @@
 {
-  "name": "mmodel",
+  "name": "mmmodel",
   "version": "0.0.2",
   "author": "weepy",
   "licenses":     [{
     "type":       "MIT",
-    "url": "http://github.com/weepy/mmodel/raw/master/LICENSE"
+    "url": "http://github.com/weepy/mmmodel/raw/master/LICENSE"
   }],
   "directories" : {
     "lib" : "./lib"
   },
-  "repository": "http://github.com/weepy/mmodel",
+  "repository": "http://github.com/weepy/mmmodel",
   "engines" : { "node": ">= 0.4.0" },
   "main": "./lib/index"
 }

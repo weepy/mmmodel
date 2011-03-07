@@ -1,7 +1,7 @@
 var x = {},
     assert = require('assert'),
     is = require('should'),
-    mmodel = require('../lib/index'),
+    mmmodel = require('../lib/index'),
     Task = require("./lib/task")("memory")
 
 
@@ -77,7 +77,7 @@ exports.test_update = function(done) {
     task.save(function(t) {
       t.user.should.eql("bob")
       t.id.should.eql(1)
-      // task.sync()
+      // task._synchronize()
       // task.modified().should.eql(false)
       // task.modified("user").should.eql(false)
       done()

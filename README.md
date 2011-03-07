@@ -1,48 +1,44 @@
-MMODEL
-------
+MMMODEL
+======
 
-Mtask is a Javascript ORM for Redis and client side use through a REST api. It has multiple backends - using the same API. There's also a memory store.
+Homer Simpson's favorite Javascript ORM
+
+MMmodel is a Javascript ORM for Redis and client side use through a REST api. 
+
+It has multiple backends - using the same API. There's also a memory store.
 
 Structure
 ---
 
-There's a common Core with 3 stores (Redis, Memory and REST). Other's could easily be written.
+TBD
 
+Documentation
+----
 
-API
----
+See api in docs/index.html
 
-Core
----
+more to come
 
-var Task = Mmodel.create("Task", { ... }) 
+Examples
+--------
 
-// We now have the following functions available to us in core
+TBD
 
-new Task(attr, [sync]) 
-Task.load(attr)
-Task.create(attr, [callback])
-task.sync
-task.modified([prop])
-task.update(params, [callback]) {
-task.save([callback])
-task.error(str) 
-task.destroy([callback])
-task.toJSON()
-task.in_error()
-task.merge(attr, [x])
-task.validate(callback)
-Task._setStore
-Task.load_multi(array)
-Task.bind = task.bind(ev, callback, async)
-Task.unbind = task.unbind(ev, callback)
-task.trigger(ev)
+Installation
+------
 
+npm install mmmodel
+
+Create Documenation
+-------
+./make_docs
+
+needs dox installed
 
 Tests
 ----
 
 To run the TDD tests:
 <pre>
-expresso -s test/*
+expresso -s test/test_* -t 5000
 </pre>
