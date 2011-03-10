@@ -1,16 +1,11 @@
 {
   "name": "mmmodel",
   "version": "0.0.2",
-  "author": "weepy",
-  "licenses":     [{
-    "type":       "MIT",
-    "url": "http://github.com/weepy/mmmodel/raw/master/LICENSE"
-  }],
-  "directories" : {
-    "lib" : "./lib"
-  },
+  "description": "Homer's favorite Javascript ORM",
+  "keywords": ["javascript", "orm", "redis", "rest"],
+  "author": "Jonah Fox <jonah@boodigital.com>",
   "repository": "http://github.com/weepy/mmmodel",
-  "engines" : { "node": ">= 0.4.0" },
-  "main": "./lib/index"
+  "dependencies": {},
+  "main": "index",
+  "engines": { "node": "0.4.x" }
 }
-

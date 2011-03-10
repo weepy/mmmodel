@@ -1,9 +1,9 @@
-MMMODEL
+mmmodel
 ======
 
-Homer Simpson's favorite Javascript ORM
+Homer's favorite Javascript ORM
 
-MMmodel is a Javascript ORM for Redis and client side use through a REST api. 
+mmmodel is an ORM for Redis and client side use through a REST api. 
 
 It has multiple backends - using the same API. There's also a memory store.
 
@@ -31,14 +31,17 @@ npm install mmmodel
 
 Create Documenation
 -------
-./make_docs
 
-needs dox installed
+<pre>make docs</pre>
+
+NB: needs dox installed
 
 Tests
 ----
 
 To run the TDD tests:
 <pre>
-expresso -s test/test_* -t 5000
+make test
 </pre>
+
+NB: needs expresso installed

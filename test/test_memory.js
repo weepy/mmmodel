@@ -1,9 +1,8 @@
 var x = {},
     assert = require('assert'),
     is = require('should'),
-    mmmodel = require('../lib/index'),
+    mmmodel = require('..'),
     Task = require("./lib/task")("memory")
-
 
 var task, o
 
@@ -19,10 +18,6 @@ exports.unsaved_task_has_no_id = function(done) {
   is.ok(!t.id)
   done()
 }
-
-
-
-
 
 
 exports.save_valid_saved = function(done) {

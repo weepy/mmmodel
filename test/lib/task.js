@@ -1,6 +1,6 @@
 
 module.exports = function(store) {
-  var Task = require("../../lib/index")[store]("Task", {
+  var Task = require("../..")[store]("Task", {
     id: { type: "number", auto_inc: true },
     user: { type: "string", required: "true" },
     created_at: { type: "date" },
