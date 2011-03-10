@@ -4,6 +4,7 @@
   * Complete rewrite
   * Use z lists for redis graph api
   * REST store now working
+  * edge type now first argument for add_edge and remove_edge
 
 0.0.1 / 2010-01-01
 ==================

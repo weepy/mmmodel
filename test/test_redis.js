@@ -146,8 +146,8 @@ exports.test_all2 = function(done) {
 
 exports.test_add_edge = function(done) {
   
-  Task.add_edge(1, "popular", function() {
-    Task.add_edge(2, "popular", function() {
+  Task.add_edge("popular", 1, function() {
+    Task.add_edge("popular", 2, function() {
       Task.find_edges("popular").all(function(edges) {
         edges.should.eql([1,2])
         done()
@@ -165,7 +165,7 @@ exports.test_count_add_edge = function(done) {
 }
 
 exports.test_remove_edge = function(done) {  
-  Task.remove_edge(1, "popular", function(ok) {
+  Task.remove_edge("popular", 1, function(ok) {
     Task.find_edges("popular").all(function(edges) {
       edges.should.eql([2])
       done()
@@ -178,8 +178,8 @@ exports.test_add_edge_instance = function(done) {
   
   Task.create({user:"hello"}, function(task) {
     
-    task.add_edge(1, "related_tasks", function() {
-      task.add_edge(2, "related_tasks", function() {
+    task.add_edge("related_tasks", 1, function() {
+      task.add_edge("related_tasks", 2, function() {
         task.find_edges("related_tasks").all(function(edges) {
           edges.should.eql([1,2])
           done()
@@ -199,11 +199,11 @@ exports.test_edge_instantiation = function(done) {
 }
 
 exports.add_scoring_Edges = function(done) {
-  Task.add_edge(1,"best", 100)
-  Task.add_edge(2,"best", 4)
-  Task.add_edge(3,"best", 10)
-  Task.add_edge(4,"best", 5)
-  Task.add_edge(5,"best", 0, done)
+  Task.add_edge("best", 1, 100)
+  Task.add_edge("best", 2, 4)
+  Task.add_edge("best", 3, 10)
+  Task.add_edge("best", 4, 5)
+  Task.add_edge("best", 5, 0, done)
 }
 
 exports.test_scoring = function(done) {
