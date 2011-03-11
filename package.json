@@ -5,7 +5,10 @@
   "keywords": ["javascript", "orm", "redis", "rest"],
   "author": "Jonah Fox <jonah@boodigital.com>",
   "repository": "http://github.com/weepy/mmmodel",
-  "dependencies": {},
+  "dependencies": {
+    "brequire": ">= 0.0.3",
+    "redis": ">=0.5.7"
+  },
   "main": "index",
   "engines": { "node": "0.4.x" }
 }
