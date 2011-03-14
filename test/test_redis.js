@@ -231,6 +231,21 @@ exports.test_scoring = function(done) {
   })
 }
 
+exports.test_first = function(done) {
+
+  Task.find_edges("best").range(3,100).first(function(task){
+    task.should.eql(2)
+  })
+  
+  Task.find_edges("best").first(function(task){
+    task.should.eql(5)
+    done()
+  })
+  
+}
+
+
+
 
 
 exports.test_destroy = function(done) {
@@ -248,6 +263,15 @@ exports.test_destroy = function(done) {
       })
     })
   })
+}
+
+
+exports.test_modified2 = function(done) {
+   Task.find(2, function(t) {
+     t.created_at = 1
+     Object.keys(t.modified()).should.eql(["created_at"])
+     done()
+   })
 }
 
 exports.test_destroy2 = function(done) {

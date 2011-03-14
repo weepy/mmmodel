@@ -1,0 +1,1 @@
+* ignore required on auto_inc
