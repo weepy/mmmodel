@@ -2,11 +2,11 @@
   "name": "mmmodel",
   "version": "0.0.4",
   "description": "Homer's favorite Javascript ORM",
-  "keywords": ["javascript", "orm", "redis", "rest"],
+  "keywords": ["javascript", "orm", "rest", "redis"],
   "author": "Jonah Fox <jonah@boodigital.com>",
   "repository": "http://github.com/weepy/mmmodel",
   "dependencies": {
-    "brequire": ">= 0.0.3",
+    "brequire": ">= 0.0.4",
     "redis": ">=0.5.7"
   },
   "main": "index",
