@@ -16,7 +16,7 @@ function params(o) {
 Task.ajax = {
   ajax: function(url, data, method, callback) {
     url += "?" + params(data)
-    is.response(app, { url: url, method: method, data: "_" }, function(res) {
+    is.response(app, { url: url, method: method }, function(res) {
       callback(JSON.parse(res.body))
     })
   },
@@ -35,8 +35,11 @@ exports.test_non_existing_find = function(done) {
   })
 }
 
+
 exports.test_create = function(done) {
   Task.create({user: "jonah"}, function(task) {
+    task.__test_creating.should.eql(true)
+    task.__test_created.should.eql(true)
     task.id.should.be.eql(1)
     done()
   })
@@ -50,6 +53,7 @@ exports.test_find = function(done) {
     done()
   })
 }
+
 
 exports.test_update = function(done) {
   Task.find(1, function(task) {

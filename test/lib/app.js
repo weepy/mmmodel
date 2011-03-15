@@ -20,7 +20,9 @@ app.get("/tasks", function(req, res) {
 // save / update
 app.post("/tasks/save", function(req, res) {
   var o = JSON.parse(req.param("json"))
+
   var task = new Task(o)      
+    
   task.save(function(ok) {
     res.send(task.toJSON())
   })

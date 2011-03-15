@@ -1,3 +1,10 @@
+0.0.4
+=====
+
+  * ignore required on auto_inc
+  * added "creating" and "created" events
+  * moved some properties to a hidden _ property
+  
 0.0.3
 =====
 

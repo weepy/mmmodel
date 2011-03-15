@@ -1,6 +1,6 @@
 {
   "name": "mmmodel",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Homer's favorite Javascript ORM",
   "keywords": ["javascript", "orm", "redis", "rest"],
   "author": "Jonah Fox <jonah@boodigital.com>",

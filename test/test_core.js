@@ -11,7 +11,7 @@ exports.load = function(done) {
   task = new Task(o)
   assert.eql(task.user, "billy")
   assert.eql(task.keywords, ["books"])
-  assert.eql(task.test, 123)
+  assert.eql(task.__test_initialize, true)
   done()
 }
 

@@ -10,18 +10,26 @@ module.exports = function(store) {
 
   Task.bind("saving", function updateCreatedAt(done) {
     this.created_at || (this.created_at = new Date())
-    delete this._saved
+    delete this.__test_saved
     done()
   }, true) // async
 
-  Task.bind("saved", function setSaved() {
-    this._saved = true
+  Task.bind("saved", function() {
+    this.__test_saved = true
   }) // async
 
   Task.bind("initialize", function(done) {
-    this.test = 123
+    this.__test_initialize = true
     done()
   }, true)  
 
+  Task.bind("creating", function() {
+    this.__test_creating = true
+  })
+  
+  Task.bind("created", function() {
+    this.__test_created = true
+  })
+  
   return Task
 }

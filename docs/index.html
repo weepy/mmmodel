@@ -131,7 +131,7 @@ code .this { color: #19469D; }</style>
 <td class="code">
 <pre><code><span class="keyword">var</span> <span class="class">Model</span> = <span class="keyword">function</span>(<span class="variable">props</span>, <span class="variable">_sync</span>) {
     <span class="variable">props</span> = <span class="variable">props</span> || {}   
-    <span class="this">this</span>.<span class="variable">_properties</span> = {}      <span class="comment">// this._properties contains the synchronized version of the properties in the Store</span>
+    <span class="this">this</span>.<span class="variable">_.properties</span> = {}      <span class="comment">// this._.properties contains the synchronized version of the properties in the Store</span>
     
     <span class="keyword">for</span>(<span class="keyword">var</span> <span class="variable">k</span> <span class="keyword">in</span> <span class="variable">properties</span>) {
       <span class="keyword">var</span> <span class="variable">p</span> = <span class="variable">properties</span>[<span class="variable">k</span>]
@@ -139,7 +139,7 @@ code .this { color: #19469D; }</style>
       <span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">'default'</span> <span class="keyword">in</span> <span class="variable">p</span>) <span class="this">this</span>[<span class="variable">k</span>] = <span class="variable">p</span>[<span class="string">'default'</span>]  
     }
 
-    <span class="this">this</span>.<span class="variable">_callbacks</span> = {} <span class="comment">// this._callbacks contains event bindings relevant to this instance</span>
+    <span class="this">this</span>.<span class="variable">_.callbacks</span> = {} <span class="comment">// this._.callbacks contains event bindings relevant to this instance</span>
     <span class="keyword">if</span>(<span class="variable">props</span>.<span class="variable">errors</span>) <span class="this">this</span>.<span class="variable">errors</span> = <span class="variable">props</span>.<span class="variable">errors</span>
     <span class="this">this</span>.<span class="variable">trigger</span>(&<span class="variable">quot</span>;<span class="variable">initialize</span>&<span class="variable">quot</span>;)
     <span class="keyword">if</span>(<span class="variable">_sync</span>) <span class="this">this</span>.<span class="variable">_synchronize</span>()
@@ -211,14 +211,14 @@ code .this { color: #19469D; }</style>
     <span class="keyword">var</span> <span class="variable">o</span> = {}, <span class="variable">modified</span>
     
     <span class="keyword">if</span>(<span class="variable">prop</span>) {
-      <span class="variable">modified</span> = <span class="this">this</span>.<span class="variable">_properties</span>[<span class="variable">prop</span>] != <span class="this">this</span>[<span class="variable">prop</span>]
-      <span class="keyword">return</span> <span class="variable">modified</span> ? [<span class="this">this</span>.<span class="variable">_properties</span>[<span class="variable">prop</span>], <span class="this">this</span>[<span class="variable">prop</span>]] : <span class="variable">false</span>
+      <span class="variable">modified</span> = <span class="this">this</span>.<span class="variable">_.properties</span>[<span class="variable">prop</span>] != <span class="this">this</span>[<span class="variable">prop</span>]
+      <span class="keyword">return</span> <span class="variable">modified</span> ? [<span class="this">this</span>.<span class="variable">_.properties</span>[<span class="variable">prop</span>], <span class="this">this</span>[<span class="variable">prop</span>]] : <span class="variable">false</span>
     }
 
     <span class="keyword">for</span>(<span class="keyword">var</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="variable">properties</span>) {
-      <span class="keyword">if</span>(<span class="this">this</span>.<span class="variable">_properties</span>[<span class="variable">i</span>] !== <span class="this">this</span>[<span class="variable">i</span>]) {
+      <span class="keyword">if</span>(<span class="this">this</span>.<span class="variable">_.properties</span>[<span class="variable">i</span>] !== <span class="this">this</span>[<span class="variable">i</span>]) {
         <span class="variable">modified</span> = <span class="variable">true</span>
-        <span class="variable">o</span>[<span class="variable">i</span>] = [<span class="this">this</span>.<span class="variable">_properties</span>[<span class="variable">i</span>], <span class="this">this</span>[<span class="variable">i</span>]]
+        <span class="variable">o</span>[<span class="variable">i</span>] = [<span class="this">this</span>.<span class="variable">_.properties</span>[<span class="variable">i</span>], <span class="this">this</span>[<span class="variable">i</span>]]
       }
     }
     <span class="keyword">return</span> <span class="variable">modified</span> ? <span class="variable">o</span> : <span class="variable">false</span>
@@ -404,7 +404,7 @@ calls a "saving" callback, which on completion checks that the number of errors 
 <td class="code">
 <pre><code><span class="class">Model</span>.<span class="variable">bind</span> = <span class="class">Model</span>.<span class="variable">prototype</span>.<span class="variable">bind</span> = <span class="keyword">function</span>(<span class="variable">ev</span>, <span class="variable">callback</span>, <span class="variable">async</span>) {
     <span class="keyword">if</span>(<span class="variable">async</span>) <span class="variable">callback</span>.<span class="variable">async</span> = <span class="variable">true</span>
-    <span class="keyword">var</span> <span class="variable">list</span>  = <span class="this">this</span>.<span class="variable">_callbacks</span>[<span class="variable">ev</span>] || (<span class="this">this</span>.<span class="variable">_callbacks</span>[<span class="variable">ev</span>] = [])
+    <span class="keyword">var</span> <span class="variable">list</span>  = <span class="this">this</span>.<span class="variable">_.callbacks</span>[<span class="variable">ev</span>] || (<span class="this">this</span>.<span class="variable">_.callbacks</span>[<span class="variable">ev</span>] = [])
     <span class="variable">list</span>.<span class="variable">push</span>(<span class="variable">callback</span>)
   }</code></pre>
 </td>
@@ -416,11 +416,11 @@ calls a "saving" callback, which on completion checks that the number of errors 
 <td class="code">
 <pre><code><span class="class">Model</span>.<span class="variable">unbind</span> = <span class="class">Model</span>.<span class="variable">prototype</span>.<span class="variable">unbind</span> = <span class="keyword">function</span>(<span class="variable">ev</span>, <span class="variable">callback</span>) {
     <span class="keyword">if</span> (!<span class="variable">ev</span>)
-      <span class="this">this</span>.<span class="variable">_callbacks</span> = {}
+      <span class="this">this</span>.<span class="variable">_.callbacks</span> = {}
     <span class="keyword">else</span> <span class="keyword">if</span> (!<span class="variable">callback</span>)
-      <span class="this">this</span>.<span class="variable">_callbacks</span>[<span class="variable">ev</span>] = []
+      <span class="this">this</span>.<span class="variable">_.callbacks</span>[<span class="variable">ev</span>] = []
     <span class="keyword">else</span> {
-      <span class="keyword">var</span> <span class="variable">list</span> = <span class="this">this</span>.<span class="variable">_callbacks</span>[<span class="variable">ev</span>] || []
+      <span class="keyword">var</span> <span class="variable">list</span> = <span class="this">this</span>.<span class="variable">_.callbacks</span>[<span class="variable">ev</span>] || []
 
       <span class="keyword">for</span> (<span class="keyword">var</span> <span class="variable">i</span> = <span class="number integer">0</span>; <span class="variable">i</span> &<span class="variable">lt</span>; <span class="variable">list</span>.<span class="variable">length</span>; <span class="variable">i</span>++) {
         <span class="keyword">if</span> (<span class="variable">callback</span> === <span class="variable">list</span>[<span class="variable">i</span>]) {
@@ -445,8 +445,8 @@ calls a "saving" callback, which on completion checks that the number of errors 
 <td class="code">
 <pre><code><span class="class">Model</span>.<span class="variable">prototype</span>.<span class="variable">trigger</span> = <span class="keyword">function</span>(<span class="variable">ev</span>) <span class="comment">// further args </span>
   {
-    <span class="keyword">var</span> <span class="variable">global</span> = <span class="class">Model</span>.<span class="variable">_callbacks</span>[<span class="variable">ev</span>] || []
-        <span class="variable">local</span> = <span class="this">this</span>.<span class="variable">_callbacks</span>[<span class="variable">ev</span>] || [],
+    <span class="keyword">var</span> <span class="variable">global</span> = <span class="class">Model</span>.<span class="variable">_.callbacks</span>[<span class="variable">ev</span>] || []
+        <span class="variable">local</span> = <span class="this">this</span>.<span class="variable">_.callbacks</span>[<span class="variable">ev</span>] || [],
         <span class="variable">list</span> = <span class="variable">global</span>.<span class="variable">concat</span>(<span class="variable">local</span>)
         <span class="variable">args</span> = <span class="class">Array</span>.<span class="variable">prototype</span>.<span class="variable">slice</span>.<span class="variable">call</span>(<span class="variable">arguments</span>, <span class="number integer">1</span>),
         <span class="variable">self</span> = <span class="this">this</span>
