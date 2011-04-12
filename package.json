@@ -7,7 +7,8 @@
   "repository": "http://github.com/weepy/mmmodel",
   "dependencies": {
     "brequire": ">= 0.0.4",
-    "redis": ">=0.5.7"
+    "redis": ">=0.5.7",
+    "redisifiy": ">=0.0.1"
   },
   "main": "index",
   "engines": { "node": "0.4.x" }

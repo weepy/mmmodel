@@ -23,8 +23,8 @@ exports.unsaved_task_has_no_id = function(done) {
 exports.save_valid_saved = function(done) {
   var t = new Task({user: "billy"})
 
+
   t.save(function(ok) {
-    
     ok.should.be.ok
     is.ok(t.id, "is saved")
     is.ok(t.saved())
@@ -42,6 +42,7 @@ exports.save_valid_saved = function(done) {
 
 exports.invalid_task_is_not_saved = function(done) {
   var t = new Task()
+
 
   t.save(function(task) {
     task.should.be.ok
@@ -91,10 +92,19 @@ exports.test_to_json = function(done) {
 
 
 exports.test_failed_create = function(done) {
+  
+  
   Task.create({id: 21}, function(p) {
     is.ok(p.errors.length, "task needs owner")
+    p.saved().should.not.be.ok
+  })
+  
+  Task.count(function(num) {
+    is.equal(num, 1, "task count is " + num)
     done()
   })
+  
+  
 }
 
 exports.test_create = function(done) {

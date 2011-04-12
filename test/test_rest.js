@@ -29,6 +29,7 @@ Task.ajax = {
 }
 
 exports.test_non_existing_find = function(done) {
+ 
   Task.find(1, function(task) {
     is.ok(task === null)
     done()

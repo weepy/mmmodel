@@ -2,11 +2,13 @@ var x = {},
     redis = require("redis"),
     client = redis.createClient(),
     is = require('assert'),
-    should = require('should')
+    should = require('should'),
     Task = require("./lib/task")("redis")
     
-Task.client = client
 
+Task.db.client = client
+
+// Task.db.log = console.log
 
 client.on("error", function (err) {
     console.log("Redis connection error to " + client.host + ":" + client.port + " - " + err);
@@ -34,6 +36,7 @@ exports.save_valid_task = function(done) {
     ok.should.be.ok //(ok, "task saved ok")
     
     is.ok(t.id, "is saved")
+    
 
     client.exists("Task:1", function(err, data) {
       is.ok(!err)
@@ -243,9 +246,6 @@ exports.test_first = function(done) {
   })
   
 }
-
-
-
 
 
 exports.test_destroy = function(done) {

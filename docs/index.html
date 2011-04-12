@@ -370,7 +370,7 @@ calls a "saving" callback, which on completion checks that the number of errors 
 <td class="code">
 <pre><code><span class="class">Model</span>.<span class="variable">prototype</span>.<span class="variable">validate</span> = <span class="keyword">function</span>(<span class="variable">cb</span>) {
     <span class="this">this</span>.<span class="variable">errors</span> = []
-    <span class="this">this</span>.<span class="variable">_property_validate</span>()
+    <span class="this">this</span>.<span class="variable">_run_default_validations</span>()
     <span class="this">this</span>.<span class="variable">trigger</span>(&<span class="variable">quot</span>;<span class="variable">saving</span>&<span class="variable">quot</span>;).<span class="variable">complete</span>(<span class="keyword">function</span>() {
       <span class="variable">cb</span>.<span class="variable">call</span>(<span class="this">this</span>, !<span class="this">this</span>.<span class="variable">in_error</span>()) 
     })
@@ -383,7 +383,7 @@ calls a "saving" callback, which on completion checks that the number of errors 
     </p>
 </td>
 <td class="code">
-<pre><code><span class="class">Model</span>.<span class="variable">prototype</span>.<span class="variable">_property_validate</span> = <span class="keyword">function</span>() {
+<pre><code><span class="class">Model</span>.<span class="variable">prototype</span>.<span class="variable">_run_default_validations</span> = <span class="keyword">function</span>() {
     <span class="keyword">for</span>(<span class="keyword">var</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="variable">properties</span>) {
       <span class="keyword">var</span> <span class="variable">p</span> = <span class="variable">properties</span>[<span class="variable">i</span>]
       <span class="keyword">if</span>(<span class="variable">p</span>.<span class="variable">required</span> &<span class="variable">amp</span>;&<span class="variable">amp</span>; <span class="this">this</span>[<span class="variable">i</span>] == <span class="keyword">null</span>)
