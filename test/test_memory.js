@@ -42,8 +42,6 @@ exports.save_valid_saved = function(done) {
 
 exports.invalid_task_is_not_saved = function(done) {
   var t = new Task()
-
-
   t.save(function(task) {
     task.should.be.ok
     is.ok(!t.saved())
@@ -51,11 +49,8 @@ exports.invalid_task_is_not_saved = function(done) {
   })
 }
 
-
-
-
-
 exports.find_saved_task = function(done) {
+
   Task.find(1, function(u) {
     is.equal(u.id, 1, "id is correct")  
   
